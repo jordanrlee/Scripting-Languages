@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# this is a placeholder for the commandline program which will retrieve 
+# the student's source file(s) and install them into tmp/aruba for execution
+
+#echo $(pwd)
+#echo "Getfile called!"
+#rm -rf ../bin
+#mkdir -p ../bin
+mkdir -p dlls
+cp --preserve=mode ../../dbload.ps1 ../../bin/
+cp --preserve=mode ../../dlls/*.dll dlls/

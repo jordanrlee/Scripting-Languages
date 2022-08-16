@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# this is a placeholder for the commandline program which will retrieve 
+# the student's source file(s) and install them into tmp/aruba for execution
+
+echo $(pwd)
+echo "Getfile called!"
+rm -f ../bin/*
+mkdir -p ../bin
+cp --preserve=mode ../../srpt.ps1 ../../bin/
