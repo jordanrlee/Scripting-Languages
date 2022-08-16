@@ -1,0 +1,97 @@
+#!/bin/bash
+# Jordan Lee
+# Lab2 - Search and Report
+# CS 3030 - Scripting Languages
+
+((directoryCount--))
+
+#create a temp folder (dont forget to delete it)
+rm -rf /tmp/$USER
+mkdir /tmp/$USER
+
+# the error case 
+
+if [ $# -ne 1 ]
+then
+	echo "Usage: srpt $PWD"
+	exit 1
+fi
+# consider searching with the single find command and then incrementing
+# the variables when one is found. if statement -> variable++, then list 
+# the count of all the variables at the end in the search report.
+#the search directory part (single find command)
+
+# create a list of variables to be used for the find command
+num_files=0
+num_directories=0
+num_symlinks=0
+jpg=0
+bmp=0
+gif=0
+num_pictures=(`expr $jpg + $bmp + $gif`)
+num_oldfiles=0
+num_largefiles=0
+num_temp=0
+num_executables=0
+# this is created below ..total_size=0
+
+# ------- end variables --------
+#-------------------------------
+
+# num_oldfiles, num_largefiles wont work
+
+#find $1 \( if [$dir -type f] ; then $num_files++ fi \),
+#\(if [$dir -type d] ; then num_directories++ fi \),
+#\(if [$dir -type l] ; then num_symlinks++ fi \),
+#\(if [$dir -type f -iname *.jpg] ; then jpg++ fi \),
+#\(if [$dir -type f -iname *.bmp] ; then bmp++ fi \),
+#\(if [$dir -type f -iname *.gif] ; then gif++ fi \),
+#\(if [$dir -type f -mtime+365] ; then num_oldfiles++ fi \),
+#\(if [$dir -type f -size+500000c] ; then num_largefile++ fi \),
+#\(if [$dir -type f -name "*.o"] ; then num_temp++ fi \),
+#\(if [$dir -type f -perm 755] ; then num_executables++ fi \),
+#\($dir -type f -ls |total_size=awk'{tot=tot+$1}END{print tot}';\)
+
+#dir=$@
+#new code here
+
+# ------------- old --------------
+# the search directory part (multiple find commands)
+#search the different graphics and combine them into pictures
+dir=$@
+num_files=$(find $dir -type f | wc -l)
+num_directories=$(find $dir -type d | wc -l)
+num_symlinks=$(find $dir -type l | wc -l)
+jpg=$(find $dir -type f -iname *.jpg | wc -l)
+bmp=$(find $dir -type f -iname *.bmp | wc -l)
+gif=$(find $dir -type f -iname *.gif | wc -l)
+num_pictures=$(expr $jpg + $bmp + $gif)
+num_oldfiles=$(find $dir -type f -mtime +365 | wc -l)
+num_largefiles=$(find $dir -type f -size +500000c | wc -l)
+num_temp=$(find $dir -type f -name "*.o" | wc -l)
+num_executables=$(find $dir -type f -perm 755 | wc -l)
+total_size=$(find $dir -type f -ls | awk '{tot=tot+$1} END {print tot}';)
+# ----------------- end old code ---------------------
+
+#create the output report
+printf "SearchReport $HOSTNAME $@ $(date)"
+
+# format the printf to pretty-up the report formatting
+printf "\n\nExecution time %'d\n" $SECONDS
+printf "Directories %'d\n" $num_directories
+printf "Files %'d\n" $num_files
+printf "Sym links %'d\n" $num_symlinks
+printf "Old files %'d\n" $num_oldfiles
+printf "Large files %'d\n" $num_largefiles
+printf "Graphics files %'d\n" $num_pictures
+printf "Temporary files %'d\n" $num_temp
+printf "Executable files %'d\n" $num_executables
+printf "TotalFileSize %'d\n" $total_size
+
+
+
+# delete the temp folder when the script is done
+rm -rf /tmp/$USER
+
+# end script Hooray!
+exit

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# this is a placeholder for the commandline program which will retrieve 
+# the student's source file(s) and install them into bin/ for execution
+
+# 02May2018: modified for Cucumber 3.1
+
+#echo $(pwd)
+#echo "Getfile called!"
+cp --preserve=mode ../../hello ../../bin/
