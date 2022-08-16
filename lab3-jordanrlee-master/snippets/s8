@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# s8
+
+# Ted Cowan - add the HTML
+
+printf "<html>\n<body><h1>Failed Login Attempts Report as of $( date )</h1>\n" >s8out
+cat s7out| while read mycount myuserid; do
+	printf "<br />  %s %s\n" "$mycount" "$myuserid" >>s8out
+done
+printf "</body> </html>" >>s8out
+

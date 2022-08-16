@@ -1,0 +1,12 @@
+# This is an expanded commands file for Lab 6
+HEADER "THIS IS A \t\t\tHEADER\n"
+STRING '"'
+WORD lastname "surnames.txt"
+STRING ', '
+WORD firstname "firstnames.txt"
+STRING '","'
+REFER firstname
+STRING '.'
+REFER lastname
+INTEGER num 1 999
+STRING '@mail.weber.edu"\n'

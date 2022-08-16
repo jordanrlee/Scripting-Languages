@@ -1,0 +1,10 @@
+# This is the basic commands file for Lab 6
+STRING '"'
+WORD lastname "surnames.txt"
+STRING ', '
+WORD firstname "firstnames.txt"
+STRING '","'
+REFER firstname
+STRING '.'
+REFER lastname
+STRING '@mail.weber.edu"\n'

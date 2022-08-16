@@ -1,0 +1,33 @@
+#!/usr/bin/python
+
+# Ted Cowan
+
+# s3 - calculates square roots in a loop until terminated by the user
+
+# squareRoot(number) calcuates the square root of number
+def squareRoot(number):
+	return (number ** 0.5)
+	
+# issue a friendly greeting
+print("Welcome to the square root calculator")
+
+# loop until terminated by the user entering "q" or "exit"
+while True:
+	# Ask the user for a number or "q" or "exit" to quit
+	# We are a Python 2.x script using raw_input()
+	x = raw_input("""\nPlease enter a number or "q" or "exit" to quit: """)
+	# If the user wishes to quit, terminate script
+	if x == "q" or x == "exit":
+		exit(0)
+	# Attempt to convert the number to a float and
+	#  calculate the square root.
+	# If either fails, issue a nastygram and restart the loop
+	try:
+		x = float(x)
+		rootx = squareRoot(x)
+	except:
+		print("\nInvalid entry, please try again")
+		continue
+	# Calculate the square root, display results and restart loop
+	print("\nThe square root of %.2f is %.2f" % (x, rootx))
+	continue

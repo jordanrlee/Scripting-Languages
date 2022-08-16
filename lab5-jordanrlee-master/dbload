@@ -1,0 +1,75 @@
+#!/usr/bin/python3
+# Jordan Lee
+# Lab 5 - Database Loader
+# CS 3030 - Scripting Languages
+
+# code start
+
+import sqlite3
+import csv
+import sys
+import random
+
+if len(sys.argv) != 3:
+	print("Usage: dbload CSVFILE DATABASEFILE")
+	exit(1)
+
+
+# attempt the input
+try:
+	input_csv_file = str(sys.argv[1])
+except:
+	print("Error encountered")
+	exit(1)
+# attempt the output
+try:
+	database_file = str(sys.argv[2])
+except:
+	print("Error encountered")
+	exit(1)
+
+
+
+conn = sqlite3.connect(database_file)
+curs = conn.cursor()
+
+
+# check for courses table then create it using id, subjcode, coursenumbmer, termcode
+curs.execute('''DROP TABLE IF EXISTS courses''')
+curs.execute('''CREATE TABLE courses
+	(id TEXT, subjcode TEXT, coursenumber TEXT, termcode TEXT)''')
+
+
+# check for the people table, then create it using id, lastname, firstname
+# email, major, city, state, zip
+curs.execute('''DROP TABLE IF EXISTS people''')
+curs.execute('''CREATE TABLE people
+	(id TEXT PRIMARY KEY UNIQUE, lastname TEXT, firstname TEXT, email TEXT, major TEXT, city TEXT, state TEXT, zip TEXT)''')
+
+reader = csv.reader(open(input_csv_file, 'r'), delimiter=',', quotechar='"')
+counter = 0
+for row in reader:
+	counter += 1
+	if counter == 1:
+		continue
+
+	word = row[5].split(" ")
+	c = (row[0], word[0], word[1], row[6])
+
+	curs.execute('''insert into courses (id, subjcode, coursenumber, termcode)
+			values (?,?,?,?)''', c)
+
+	if not curs.execute('''SELECT id FROM people WHERE id = "%s"''' % row[0]).fetchone():
+		s = (row[0], row[2], row[1], row[3], row[4], row[7], row[8], row[9])
+		curs.execute('''insert into people (id, lastname, firstname, email, major, city, state, zip)
+			values (?,?,?,?,?,?,?,?)''', s)
+
+# finalize
+conn.commit()
+
+# then exit on success
+exit(0)
+
+
+# code end
+

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+# s5
+
+# Ted Cowan - sort the output from uniq -c:
+#    field 1 numeric, descending
+#    field 2 ascending
+
+sort -k1,1nr -k2,2 s4out >s5out
+

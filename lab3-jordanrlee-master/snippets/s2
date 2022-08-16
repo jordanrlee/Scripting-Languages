@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# s2
+
+# Ted Cowan - extract the name of the user who failed to supply the proper
+# password, including invalid users
+
+#sed -n 's/.*Failed password for \([a-z0-9A-Z_]*\) .*/\1/p' secure >s2out
+sed -n 's/.*Failed password for \([a-z0-9A-Z_]*\) .*/\1/p' secure >s2out
+
+

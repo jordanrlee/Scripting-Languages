@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# s1
+
+# Ted Cowan search for failed password attempts of any kind using grep
+
+grep 'Failed password for ' secure >s1out

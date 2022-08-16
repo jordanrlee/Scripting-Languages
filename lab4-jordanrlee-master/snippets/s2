@@ -1,0 +1,25 @@
+#!/usr/bin/python
+
+# Ted Cowan
+
+# s2 - Square a provided integer
+
+# Define our function for calculating squares
+def square(number):
+	return (number * number)
+	
+# Ask the user for an integer
+x = raw_input("\nPlease enter a integer to be squared: ")
+
+# Convert the user's answer to an integer if possible
+try:
+	x = int(x)
+except:
+	print("Sorry, '%s' is not an integer" % x)
+	exit(1)
+
+# Call our handy dandy routine to square the number
+xx = square(x)
+
+# Display the result
+print("The square of %d is %d" % (x, xx))

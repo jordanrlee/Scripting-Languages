@@ -1,0 +1,59 @@
+#!/usr/bin/python3
+# (Jordan Lee)
+# Lab 4 - Temp
+# CS 3030 - Scripting Languages
+
+###################################################################
+# begin code
+###################################################################
+
+# farenheit logic
+def fahrenheitToCelsius(fahrenheit):
+        C = (F - 32.0) * (5.0/9.0)
+        return C
+# celcius logic
+def celsiusToFahrenheit(celsius):
+        F = (9.0/5.0) * C + 32.0
+        return F
+# print the initial screen
+print("Welcome to the CS 3030 Temperature Conversion Program")
+
+# begin the menu with a loop
+# loop should check for the quit command (which is 3), convert fahrenheit to celcius and vice versa, and return to inital menu.
+while True:
+        print("\n\tMain Menu\n\n\t1:Fahrenheit to Celsius\n\t2:Celsius to Fahrenheit\n\t3:Exit program\n\n")
+        x = input("\tPlease enter 1, 2 or 3:")
+        try:
+           z = float(x)
+        except:
+           print("Invalid entry")
+           continue
+
+        if z == 3:
+            exit(0)
+
+        try:
+                y = float(x)
+        except:
+                print("Invalid entry")
+                continue
+# if the user enters 1 to convert from farenheit to celcius, check for invalid entry still
+        if y == 1:
+            one = input("Please enter degrees Fahrenheit: ")
+            try:
+                F = float(one)
+                print("%.1f degrees Fahrenheit equals %.1f degrees Celsius" % (F,fahrenheitToCelsius(F)))
+            except:
+                print("Invalid entry")
+                continue
+# if the user enters 2 to convert from celcius to fahrenheit, check for invalid entry still 
+        if y == 2:
+            two = input("Please enter degrees Celsius: ")
+            try:
+                C = float(two)
+                print("%.1f degrees Celsius equals %.1f degrees Fahrenheit" % (C,celsiusToFahrenheit(C)))
+            except:
+                print("Invalid entry")
+                continue
+
+# end code

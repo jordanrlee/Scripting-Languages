@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# s4
+
+# Ted Cowan - count the number of occurences of each username with uniq
+# which will create output like:
+#    nnnn name1
+#    nnnn name2
+#    nnnn name3
+
+uniq -c <s3out >s4out
+

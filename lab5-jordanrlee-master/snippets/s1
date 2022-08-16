@@ -1,0 +1,18 @@
+#!/usr/bin/python3
+import sqlite3
+import csv
+conn = sqlite3.connect('fun.db')
+curs = conn.cursor()
+curs.execute('''drop table if exists comics''')
+curs.execute('''create table comics
+	(firstname text, lastname text, email text, origin text)''')
+reader = csv.reader(open('test.csv', 'r'), delimiter=',', quotechar='"')
+counter = 0
+for row in reader:
+	counter += 1
+	if counter == 1:
+		continue
+	r = (row[0],row[1],row[2],row[3])
+	curs.execute('''insert into comics (firstname,lastname,email,origin) 
+		values (?,?,?,?)''', r)
+conn.commit()	#do only 1 commit at the very end for speed

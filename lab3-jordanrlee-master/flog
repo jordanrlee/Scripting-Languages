@@ -1,0 +1,32 @@
+#! /bin/bash
+# Jordan Lee
+# Lab 3 - Failed Login Report
+# CS 3030 - Scripting Languages
+
+# code
+# check file first
+if [ $# -ne 1 ]
+then
+        echo "Usage: srpt $PWD "
+exit 1
+fi
+# end the file check
+
+# begin the search for failed logins
+grep 'Failed password for ' $@ > s1out
+# search for the characters
+sed -n 's/.*Failed password for \([a-z0-9A-Z_]*\) .*/\1/p' s1out >s2out
+# sort the findings
+sort <s2out >s3out
+uniq -c <s3out >s4out
+# sort the findings
+sort -k1,1nr -k2,2 s4out >s5out
+sed 's/invalid/\&lt;UNKNOWN\&gt;/' <s5out >s6out
+
+# print the report
+printf "<html>\n<body><h1>Failed Login Attempts Report as of $(date)</h1>\n"
+cat s6out| while read mycount myuserid; do
+               printf "<br /> %'d %s\n" "$mycount" "$myuserid"
+done
+printf "</body> </html>"
+# end report

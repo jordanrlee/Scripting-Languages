@@ -1,0 +1,11 @@
+#!/bin/bash
+
+# s7
+
+# Ted Cowan - put commas in the numbers
+
+rm s7out
+cat s6out| while read mycount myuserid; do
+	printf "%'d %s\n" "$mycount" "$myuserid" >>s7out
+done
+

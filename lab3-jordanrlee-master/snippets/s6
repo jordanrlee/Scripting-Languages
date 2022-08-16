@@ -1,0 +1,7 @@
+#!/bin/bash
+
+# s6
+
+# Ted Cowan - change all instances of "invalid" to "<UNKNOWN>" with HTML-friendly brackets
+sed 's/invalid/\&lt;UNKNOWN\&gt;/' <s5out >s6out
+
